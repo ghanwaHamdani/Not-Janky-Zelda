@@ -1,0 +1,16 @@
+import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+
+/**
+ * The hearts are the players lives. He starts with three and gets one removed if he walks into the water, and loses all of them when he walks 
+ * into the lava. (He can also gain some by solving stuff?)
+ * 
+ * Hafeeza Ali
+ * 2024/01/16
+ */
+public class Hearts extends Actor
+{ int lives = 3;
+    public void act()
+    {
+        getWorld().showText(""+lives, 30, 30);
+    }
+}
