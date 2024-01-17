@@ -42,7 +42,7 @@ public class Block extends Actor
             if (event==1){key();}
         }
     }
-    public void collisionDetection()
+    public void collisionDetection() 
     {
         Class[] objects = {Link.class}; //All classes in this array are able to push this block
         int collisionAmount=0;
@@ -91,13 +91,20 @@ public class Block extends Actor
             }
             
             //CHECK IF BLOCK IS ON LAVA
-            if(isTouching(Lava.class) || isTouching(Water.class)){
+            if(isTouching(Lava.class)){
                 negateMoving();
                 //Actor object = getOneIntersectingObject(Lava.class);
-                setImage("GreenTile.png");
-                removeTouching(Link.class);
+                //setImage("GreenTile.png");
+                removeTouching(Lava.class);
                 isTile = true;
-            } 
+                getWorld().removeObject(this);
+                break;
+            } else if (isTouching(Water.class)){
+                removeTouching(Water.class);
+                isTile = true;
+                getWorld().removeObject(this);
+                break;
+            }
             
             collisionAmount++;
         }
