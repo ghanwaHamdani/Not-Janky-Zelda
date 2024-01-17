@@ -11,6 +11,7 @@ public class RandomlyGeneratingDungeon extends World
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(680, 480, 1, false); 
+        addObject (new Hearts (), 30, 30);
         addObject(new Link(),getWidth()/2,getHeight()/2+20);
         addObject(new FadeOverlay(),getWidth()/2,getHeight()/2);
         addObject(new Wall(getWidth()*2,40),getWidth(),20);
@@ -41,8 +42,8 @@ public class RandomlyGeneratingDungeon extends World
         }
     }
     
-    public void paintOrder(){
-        setPaintOrder(Link.class,FadeOverlay.class,Wall.class,Key.class,Block.class,Lava.class,Water.class);
+   public void paintOrder(){
+        setPaintOrder(Link.class,FadeOverlay.class,Hearts.class, Wall.class,Key.class,Block.class,Lava.class,Water.class);
     }
     
     public void act(){
