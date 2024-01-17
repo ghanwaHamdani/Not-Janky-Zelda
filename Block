@@ -16,6 +16,8 @@ public class Block extends Actor
     */
     boolean movable=false;//If false, it will not let move from being true
     boolean move=false;//If true, it will allow the block to be pushed
+    static boolean isTile = false;
+    
     public Block(boolean b, int e, int k){
         movable=b;
         move=b;
@@ -69,7 +71,7 @@ public class Block extends Actor
         while (collisionAmount<blocks.length){
             //Down check
             for (int i=-getImage().getWidth()/2+2; i<getImage().getWidth()/2-2; i++){
-                Actor object = getOneObjectAtOffset(i, getImage().getHeight()/2+20,blocks[collisionAmount]);
+                Actor object = getOneObjectAtOffset(i, getImage().getHeight()/2+20, blocks[collisionAmount]);
                 if (object!=null&&ymove>0){negateMoving();}
             }
             //Up check
@@ -87,6 +89,16 @@ public class Block extends Actor
                 Actor object = getOneObjectAtOffset(getImage().getWidth()/2+20, i,blocks[collisionAmount]);
                 if (object!=null&&xmove>0){negateMoving();}
             }
+            
+            //CHECK IF BLOCK IS ON LAVA
+            if(isTouching(Lava.class) || isTouching(Water.class)){
+                negateMoving();
+                //Actor object = getOneIntersectingObject(Lava.class);
+                setImage("GreenTile.png");
+                removeTouching(Link.class);
+                isTile = true;
+            } 
+            
             collisionAmount++;
         }
         if (xmove!=0||ymove!=0){move=false; moves=20;} //Moves is the amount of times the block will move before stopping
@@ -108,4 +120,5 @@ public class Block extends Actor
         getWorld().addObject(new Key(),x*40+20,getWorld().getHeight()-y*40-20);
         event=0;
     }
+
 }
